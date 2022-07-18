@@ -261,8 +261,6 @@ class MultiselectAutocompleteComponent {
   }
 
   onClick(event, fruit) {
-    debugger;
-    console.log(event);
     event.stopPropagation();
     this.selectedFruits[fruit] = this.selectedFruits[fruit] ? false : true;
     const index = this.fruits.indexOf(fruit);
@@ -272,8 +270,6 @@ class MultiselectAutocompleteComponent {
     } else {
       this.fruits.push(fruit);
     }
-
-    console.log(this.selectedFruits);
   }
 
   _filter(value) {
