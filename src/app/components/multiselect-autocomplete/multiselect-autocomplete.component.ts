@@ -51,8 +51,6 @@ export class MultiselectAutocompleteComponent {
   }
 
   onClick(event: MouseEvent, fruit: string) {
-    debugger;
-    console.log(event);
     event.stopPropagation();
     this.selectedFruits[fruit] = this.selectedFruits[fruit] ? false : true;
     const index = this.fruits.indexOf(fruit);
@@ -61,7 +59,6 @@ export class MultiselectAutocompleteComponent {
     } else {
       this.fruits.push(fruit);
     }
-    console.log(this.selectedFruits);
   }
 
   private _filter(value: string): string[] {
