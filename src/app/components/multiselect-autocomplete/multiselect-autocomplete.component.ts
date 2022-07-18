@@ -15,8 +15,9 @@ export class MultiselectAutocompleteComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new UntypedFormControl('');
   filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
+  fruits: string[] = [];
   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  selectedFruits: any = {};
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement> | undefined;
 
@@ -31,21 +32,14 @@ export class MultiselectAutocompleteComponent {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
-    // Add our fruit
     if (value) {
       this.fruits.push(value);
     }
-
-    // Clear the input value
-    // event.chipInput!.clear();
-
     this.fruitCtrl.setValue(null);
   }
 
   remove(fruit: string): void {
     const index = this.fruits.indexOf(fruit);
-
     if (index >= 0) {
       this.fruits.splice(index, 1);
     }
@@ -53,8 +47,21 @@ export class MultiselectAutocompleteComponent {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.fruits.push(event.option.viewValue);
-    // this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
+  }
+
+  onClick(event: MouseEvent, fruit: string) {
+    debugger;
+    console.log(event);
+    event.stopPropagation();
+    this.selectedFruits[fruit] = this.selectedFruits[fruit] ? false : true;
+    const index = this.fruits.indexOf(fruit);
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+    } else {
+      this.fruits.push(fruit);
+    }
+    console.log(this.selectedFruits);
   }
 
   private _filter(value: string): string[] {
